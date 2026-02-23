@@ -1,6 +1,7 @@
 # 🧱 Designing a Data Warehouse with Medallion Architecture in Microsoft Fabric
 
 ---
+<img width="900" height="579" alt="image" src="https://github.com/user-attachments/assets/107a72e2-6859-4933-9403-fe01b7a796f9" />
 
 ## <span style="color:#D35400;">Problem</span>
 
@@ -77,3 +78,39 @@ Each layer refines the data, ensuring that **data quality** and **transformation
 <span style="background:#D4AF37;color:#111;padding:4px 10px;border-radius:999px;"><b>Gold</b></span>
 
 From the raw **bronze** stage to the analytical **gold** stage, data becomes increasingly reliable, standardized, and ready for decision-making.
+
+Setting Up the Medallion Architecture in Microsoft Fabric
+To set up the medallion architecture to create a data warehouse, I will leverage two Lakehouses (Bronze and Silver layers) and a Warehouse (Gold layer). Note: There is a difference between a Lakehouse and a Warehouse regarding Microsoft Fabric. See this article by Microsoft for details.
+
+A summary of this approach is outlined in the architecture diagram below.
+
+<img width="900" height="579" alt="image" src="https://github.com/user-attachments/assets/c80ccdaa-cea6-48b3-b246-274410114070" />
+
+# Medallion Architecture Setup in Microsoft Fabric
+
+For this article, I will use the following steps to set up the medallion architecture for developing the data warehouse in Microsoft Fabric.
+
+## Overview of Steps
+
+1. **Create the two Fabric Lakehouses (Bronze and Silver)**
+2. **Ingest raw data into the bronze Lakehouse layer**
+3. **Transform data in the silver layer**
+4. **Curate data in the Gold (Data Warehouse) layer**
+5. **Set up and schedule the pipelines** for orchestrating data between the layers
+6. **Enable data access for reporting**
+
+---
+
+## Step 1: Create Two Fabric Lakehouses (Bronze and Silver)
+
+We will start by creating a Lakehouse in Microsoft Fabric as the foundation of the data architecture. The Lakehouse serves as the central repository for 
+storing structured, semi-structured, and unstructured data using Fabric’s OneLake for scalable and distributed data storage.
+
+> [!IMPORTANT]
+> First, we need to create a **Workspace** in [app.powerbi.com](https://app.powerbi.com).
+> **Note:** Creating workspaces in the Power BI service requires administrative rights to the tenant. Check with your Power BI admin to set up a workspace 
+for this purpose.
+
+For this demo, I have created a workspace called `fab_ws_sales`. The process below shows one way to create a Lakehouse in Microsoft Fabric.
+
+
